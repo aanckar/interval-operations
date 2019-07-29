@@ -2,6 +2,16 @@
   "name": "interval-operations",
   "version": "1.0.0",
   "description": "Utilities for performing mathematical set operations on intervals and arrays of intervals",
+  "keywords": [
+    "interval",
+    "time interval",
+    "interval utils",
+    "set operations",
+    "union",
+    "intersection",
+    "difference",
+    "mathematics"
+  ],
   "main": "dist/main.js",
   "module": "dist/module.js",
   "types": "dist/main.d.ts",
@@ -13,6 +23,14 @@
   },
   "author": "Andreas Anckar",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aanckar/interval-operations.git"
+  },
+  "homepage": "https://github.com/aanckar/interval-operations",
+  "bugs": {
+    "url": "https://github.com/aanckar/interval-operations/issues"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "@types/node": "^12.6.8",
