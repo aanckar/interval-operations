@@ -1,6 +1,6 @@
 {
   "name": "interval-operations",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utilities for performing mathematical set operations on intervals and arrays of intervals",
   "keywords": [
     "interval",
