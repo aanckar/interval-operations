@@ -1,0 +1,4 @@
+node_modules/
+coverage/
+old/
+.rpt2_cache/
