@@ -24,10 +24,10 @@ export function arrayDifference(
 ): Interval[] {
   const intervals = union(...inputIntervals);
   const diffIntervals = union(...inputDiffIntervals);
-  if (!intervals) {
+  if (!intervals.length) {
     return [];
   }
-  if (!diffIntervals) {
+  if (!diffIntervals.length) {
     return intervals;
   }
   const result = [];
