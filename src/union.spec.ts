@@ -2,7 +2,7 @@ import { union, arrayUnion } from './union';
 
 describe('union', () => {
   test('union', () => {
-    expect(union()).toBeNull();
+    expect(union()).toEqual([]);
     expect(union([1, 2], [3, 4])).toEqual([[1, 2], [3, 4]]);
     expect(union([1, 3], [2, 4], [5, 6])).toEqual([[1, 4], [5, 6]]);
   });
