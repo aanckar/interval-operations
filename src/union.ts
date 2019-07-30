@@ -1,9 +1,9 @@
 import { Interval } from './types';
 import { sortByStart } from './helpers';
 
-export function union(...intervals: Interval[]): Interval[] | null {
+export function union(...intervals: Interval[]): Interval[] {
   if (!intervals.length) {
-    return null;
+    return [];
   }
   intervals = intervals.sort(sortByStart);
   const result = [];
