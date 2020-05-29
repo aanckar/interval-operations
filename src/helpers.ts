@@ -1,4 +1,4 @@
-import { Interval } from './types';
+import { Interval } from "./types";
 
 type SortResult = -1 | 0 | 1;
 

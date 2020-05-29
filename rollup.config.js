@@ -1,23 +1,23 @@
-import typescript from 'rollup-plugin-typescript2';
-import pkg from './package.json';
-import { terser } from 'rollup-plugin-terser';
+import typescript from "rollup-plugin-typescript2";
+import pkg from "./package.json";
+import { terser } from "rollup-plugin-terser";
 export default {
-  input: 'src/main.ts',
+  input: "src/main.ts",
   output: [
     {
       file: pkg.main,
-      format: 'cjs'
+      format: "cjs",
     },
     {
       file: pkg.module,
-      format: 'es'
-    }
+      format: "es",
+    },
   ],
   external: [...Object.keys(pkg.dependencies || {})],
   plugins: [
     typescript({
-      typescript: require('typescript')
+      typescript: require("typescript"),
     }),
-    terser()
-  ]
+    terser(),
+  ],
 };

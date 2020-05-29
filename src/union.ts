@@ -1,5 +1,5 @@
-import { Interval } from './types';
-import { sortByStart } from './helpers';
+import { Interval } from "./types";
+import { sortByStart } from "./helpers";
 
 export function union(...intervals: Interval[]): Interval[] {
   if (!intervals.length) {

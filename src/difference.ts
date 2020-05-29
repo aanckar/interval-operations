@@ -1,6 +1,6 @@
-import { Interval } from './types';
-import { union } from './union';
-import { hasOverlap } from './helpers';
+import { Interval } from "./types";
+import { union } from "./union";
+import { hasOverlap } from "./helpers";
 
 export function difference(a: Interval, b: Interval): Interval[] | null {
   // disjoint
@@ -9,7 +9,10 @@ export function difference(a: Interval, b: Interval): Interval[] | null {
   }
   // b contained in a
   if (b[0] > a[0] && b[1] < a[1]) {
-    return [[a[0], b[0]], [b[1], a[1]]];
+    return [
+      [a[0], b[0]],
+      [b[1], a[1]],
+    ];
   }
   // b contains a
   if (b[0] <= a[0] && b[1] >= a[1]) {

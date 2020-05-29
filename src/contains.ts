@@ -1,5 +1,5 @@
-import { Interval } from './types';
-import { arrayUnion } from './union';
+import { Interval } from "./types";
+import { arrayUnion } from "./union";
 
 export function contains(
   outerInterval: Interval,

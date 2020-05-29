@@ -1,11 +1,11 @@
-import { Interval } from './types';
-import { sortByStart, sortByEnd } from './helpers';
+import { Interval } from "./types";
+import { sortByStart, sortByEnd } from "./helpers";
 
 export function intersection(...intervals: Interval[]): Interval | null {
   intervals.sort(sortByStart);
   const [start, end] = [
     intervals[intervals.length - 1][0],
-    intervals.sort(sortByEnd)[0][1]
+    intervals.sort(sortByEnd)[0][1],
   ];
   for (let i = 0, n = intervals.length; i < n - 1; i++) {
     const [nextStart, nextEnd] = intervals[i + 1];
