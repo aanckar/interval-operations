@@ -33,12 +33,12 @@ export function arrayDifference(
   if (!diffIntervals.length) {
     return intervals;
   }
-  const result = [];
+  const result: Interval[] = [];
   for (let i = 0, n = intervals.length; i < n; i++) {
-    let [start, end] = intervals[i];
+    let [start, end] = intervals[i] as Interval;
     let addInterval = true;
     for (let j = 0, m = diffIntervals.length; j < m; j++) {
-      const diffInterval = diffIntervals[j];
+      const diffInterval = diffIntervals[j] as Interval;
       // skip intervals to the left
       if (diffInterval[1] <= start) {
         continue;
@@ -49,9 +49,9 @@ export function arrayDifference(
       }
       const diff = difference([start, end], diffInterval);
       if (diff) {
-        [start, end] = diff[diff.length - 1];
+        [start, end] = diff[diff.length - 1] as Interval;
         if (diff.length > 1) {
-          result.push(diff[0]);
+          result.push(diff[0] as Interval);
         }
       } else {
         addInterval = false;

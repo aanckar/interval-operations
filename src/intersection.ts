@@ -4,11 +4,11 @@ import { sortByStart, sortByEnd } from "./helpers";
 export function intersection(...intervals: Interval[]): Interval | null {
   intervals.sort(sortByStart);
   const [start, end] = [
-    intervals[intervals.length - 1][0],
-    intervals.sort(sortByEnd)[0][1],
+    (intervals[intervals.length - 1] as Interval)[0],
+    (intervals.sort(sortByEnd)[0] as Interval)[1],
   ];
   for (let i = 0, n = intervals.length; i < n - 1; i++) {
-    const [nextStart, nextEnd] = intervals[i + 1];
+    const [nextStart, nextEnd] = intervals[i + 1] as Interval;
     if (nextStart > end || nextEnd < start) {
       return null;
     }
@@ -17,15 +17,15 @@ export function intersection(...intervals: Interval[]): Interval | null {
 }
 
 export function arrayIntersection(...arrays: Interval[][]): Interval[] {
-  let result = arrays[0];
+  let result = arrays[0] as Interval[];
   for (let i = 1, n = arrays.length; i < n; i++) {
-    const array = arrays[i];
+    const array = arrays[i] as Interval[];
     array.sort(sortByStart);
-    const tempResult = [];
+    const tempResult: Interval[] = [];
     for (let j = 0, m = result.length; j < m; j++) {
-      const resultInterval = result[j];
+      const resultInterval = result[j] as Interval;
       for (let k = 0, l = array.length; k < l; k++) {
-        const interval = array[k];
+        const interval = array[k] as Interval;
         // skip intervals to the left
         if (interval[1] <= resultInterval[0]) {
           continue;
@@ -34,7 +34,10 @@ export function arrayIntersection(...arrays: Interval[][]): Interval[] {
         if (interval[0] >= resultInterval[1]) {
           break;
         }
-        tempResult.push(intersection(resultInterval, interval));
+        const isect = intersection(resultInterval, interval);
+        if (isect) {
+          tempResult.push(isect);
+        }
       }
     }
     result = tempResult;

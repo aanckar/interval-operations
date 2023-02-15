@@ -1,6 +1,6 @@
 {
   "name": "interval-operations",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "Utilities for performing mathematical set operations on intervals and arrays of intervals",
   "keywords": [
     "interval",
@@ -12,53 +12,27 @@
     "difference",
     "mathematics"
   ],
-  "main": "dist/main.js",
-  "module": "dist/module.js",
-  "types": "dist/main.d.ts",
-  "scripts": {
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "build": "rollup --config"
-  },
   "author": "Andreas Anckar",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aanckar/interval-operations.git"
-  },
   "homepage": "https://github.com/aanckar/interval-operations",
-  "bugs": {
-    "url": "https://github.com/aanckar/interval-operations/issues"
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --watch",
+    "lint": "tsc",
+    "test": "vitest",
+    "prepublishOnly": "pnpm lint && pnpm test && pnpm build"
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
-    "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.32",
-    "@typescript-eslint/eslint-plugin": "^4.16.1",
-    "@typescript-eslint/parser": "^4.16.1",
-    "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-jest": "^24.1.8",
-    "eslint-plugin-prettier": "^3.3.1",
-    "jest": "^26.6.3",
-    "prettier": "^2.2.1",
-    "rollup": "^2.40.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "ts-jest": "^26.5.3",
-    "typescript": "^4.2.3"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".spec.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "@types/node": "^18.13.0",
+    "jest": "^29.4.2",
+    "tsup": "^6.6.2",
+    "typescript": "^4.9.5",
+    "vitest": "^0.28.5"
   }
 }
