@@ -17,9 +17,11 @@ export function arrayContains(
   outerIntervals = arrayUnion(outerIntervals);
   innerIntervals = arrayUnion(innerIntervals);
   for (let i = 0, n = innerIntervals.length; i < n; i++) {
+    const inner = innerIntervals[i] as Interval;
     let isContained = false;
     for (let j = 0, m = outerIntervals.length; j < m; j++) {
-      if (contains(outerIntervals[j], innerIntervals[i])) {
+      const outer = outerIntervals[j] as Interval;
+      if (contains(outer, inner)) {
         isContained = true;
         break;
       }

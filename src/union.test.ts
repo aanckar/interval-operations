@@ -1,3 +1,4 @@
+import { describe, expect, test } from "vitest";
 import { union, arrayUnion } from "./union";
 
 describe("union", () => {

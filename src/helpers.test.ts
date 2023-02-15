@@ -1,3 +1,4 @@
+import { describe, expect, test } from "vitest";
 import { sortByStart, sortByEnd, hasOverlap } from "./helpers";
 
 describe("helpers", () => {

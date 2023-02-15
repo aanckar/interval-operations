@@ -6,10 +6,10 @@ export function union(...intervals: Interval[]): Interval[] {
     return [];
   }
   intervals = intervals.sort(sortByStart);
-  const result = [];
-  let [start, end] = intervals[0];
+  const result: Interval[] = [];
+  let [start, end] = intervals[0] as Interval;
   for (let i = 1, n = intervals.length; i < n; i++) {
-    const [nextStart, nextEnd] = intervals[i];
+    const [nextStart, nextEnd] = intervals[i] as Interval;
     if (end < nextStart) {
       result.push([start, end]);
       start = nextStart;
@@ -25,9 +25,9 @@ export function arrayUnion(...arrays: Interval[][]): Interval[] {
   if (!arrays.length) {
     return [];
   }
-  let flattenedIntervals = [];
+  let flattenedIntervals: Interval[] = [];
   for (let i = 0, n = arrays.length; i < n; i++) {
-    flattenedIntervals = flattenedIntervals.concat(arrays[i]);
+    flattenedIntervals = flattenedIntervals.concat(arrays[i] as Interval[]);
   }
   return union(...flattenedIntervals);
 }

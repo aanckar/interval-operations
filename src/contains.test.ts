@@ -1,3 +1,4 @@
+import { describe, expect, test } from "vitest";
 import { contains, arrayContains } from "./contains";
 
 describe("contains", () => {
