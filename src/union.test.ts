@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { union, arrayUnion } from "./union";
+import { arrayUnion, union } from "./union";
 
 describe("union", () => {
   test("union", () => {

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { difference, arrayDifference } from "./difference";
+import { arrayDifference, difference } from "./difference";
 
 describe("difference", () => {
   test("difference", () => {

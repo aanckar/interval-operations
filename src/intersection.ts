@@ -1,40 +1,58 @@
-import { Interval } from "./types";
-import { sortByStart, sortByEnd } from "./helpers";
+import { Interval, IntervalPoint } from "./types";
+import { sortByEnd, sortByStart } from "./utils";
 
-export function intersection(...intervals: Interval[]): Interval | null {
+export function intersection<T extends IntervalPoint>(
+  ...intervals: Interval<T>[]
+): Interval<T> | null {
   intervals.sort(sortByStart);
-  const [start, end] = [
-    (intervals[intervals.length - 1] as Interval)[0],
-    (intervals.sort(sortByEnd)[0] as Interval)[1],
-  ];
+  const start = intervals[intervals.length - 1]?.[0];
+  const end = intervals.sort(sortByEnd)[0]?.[1];
+  if (start === undefined || end === undefined) {
+    return null;
+  }
   for (let i = 0, n = intervals.length; i < n - 1; i++) {
-    const [nextStart, nextEnd] = intervals[i + 1] as Interval;
-    if (nextStart > end || nextEnd < start) {
+    const next = intervals[i + 1];
+    if (!next) {
+      continue;
+    }
+    const [nextStart, nextEnd] = next;
+    if (nextStart >= end || nextEnd <= start) {
       return null;
     }
   }
   return [start, end];
 }
 
-export function arrayIntersection(...arrays: Interval[][]): Interval[] {
-  let result = arrays[0] as Interval[];
+export function arrayIntersection<T extends IntervalPoint>(
+  ...arrays: Interval<T>[][]
+): Interval<T>[] {
+  let result = arrays[0];
   for (let i = 1, n = arrays.length; i < n; i++) {
-    const array = arrays[i] as Interval[];
+    const array = arrays[i];
+    if (!array) {
+      continue;
+    }
     array.sort(sortByStart);
-    const tempResult: Interval[] = [];
-    for (let j = 0, m = result.length; j < m; j++) {
-      const resultInterval = result[j] as Interval;
+    const tempResult: Interval<T>[] = [];
+    for (let j = 0, m = result?.length ?? 0; j < m; j++) {
+      const curr = result?.[j];
+      if (!curr) {
+        continue;
+      }
       for (let k = 0, l = array.length; k < l; k++) {
-        const interval = array[k] as Interval;
+        const interval = array[k];
+        if (!interval) {
+          continue;
+        }
         // skip intervals to the left
-        if (interval[1] <= resultInterval[0]) {
+        if (interval[1] <= curr[0]) {
           continue;
         }
         // break if the rest of the intervals are to the right
-        if (interval[0] >= resultInterval[1]) {
+        if (interval[0] >= curr[1]) {
           break;
         }
-        const isect = intersection(resultInterval, interval);
+        const isect = intersection(curr, interval);
         if (isect) {
           tempResult.push(isect);
         }
@@ -42,5 +60,5 @@ export function arrayIntersection(...arrays: Interval[][]): Interval[] {
     }
     result = tempResult;
   }
-  return result.length ? result : [];
+  return result && result.length > 0 ? result : [];
 }

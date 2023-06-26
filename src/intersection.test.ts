@@ -1,9 +1,10 @@
 import { describe, expect, test } from "vitest";
-import { intersection, arrayIntersection } from "./intersection";
+import { arrayIntersection, intersection } from "./intersection";
 
 describe("intersection", () => {
   test("intersection", () => {
     expect(intersection([1, 2], [3, 4])).toBeNull();
+    expect(intersection([1, 2], [2, 3])).toBeNull();
     expect(intersection([1, 3], [2, 4])).toEqual([2, 3]);
   });
 
@@ -51,5 +52,6 @@ describe("intersection", () => {
       [2, 3],
       [7, 8],
     ]);
+    expect(arrayIntersection([[1, 2]], [[2, 3]])).toEqual([]);
   });
 });

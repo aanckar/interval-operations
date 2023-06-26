@@ -1,15 +1,21 @@
-import { Interval } from "./types";
-import { sortByStart } from "./helpers";
+import { Interval, IntervalPoint } from "./types";
+import { sortByStart } from "./utils";
 
-export function union(...intervals: Interval[]): Interval[] {
-  if (!intervals.length) {
+export function union<T extends IntervalPoint>(
+  ...intervals: Interval<T>[]
+): Interval<T>[] {
+  intervals = intervals.sort(sortByStart);
+  const result: Interval<T>[] = [];
+  if (!intervals[0]) {
     return [];
   }
-  intervals = intervals.sort(sortByStart);
-  const result: Interval[] = [];
-  let [start, end] = intervals[0] as Interval;
+  let [start, end] = intervals[0];
   for (let i = 1, n = intervals.length; i < n; i++) {
-    const [nextStart, nextEnd] = intervals[i] as Interval;
+    const curr = intervals[i];
+    if (!curr) {
+      continue;
+    }
+    const [nextStart, nextEnd] = curr;
     if (end < nextStart) {
       result.push([start, end]);
       start = nextStart;
@@ -21,13 +27,18 @@ export function union(...intervals: Interval[]): Interval[] {
   return [...result, [start, end]];
 }
 
-export function arrayUnion(...arrays: Interval[][]): Interval[] {
+export function arrayUnion<T extends IntervalPoint>(
+  ...arrays: Interval<T>[][]
+): Interval<T>[] {
   if (!arrays.length) {
     return [];
   }
-  let flattenedIntervals: Interval[] = [];
+  let flattenedIntervals: Interval<T>[] = [];
   for (let i = 0, n = arrays.length; i < n; i++) {
-    flattenedIntervals = flattenedIntervals.concat(arrays[i] as Interval[]);
+    const curr = arrays[i];
+    if (curr) {
+      flattenedIntervals = flattenedIntervals.concat(curr);
+    }
   }
   return union(...flattenedIntervals);
 }

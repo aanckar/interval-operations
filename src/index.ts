@@ -1,4 +1,4 @@
-export { union, arrayUnion } from "./union";
-export { difference, arrayDifference } from "./difference";
-export { intersection, arrayIntersection } from "./intersection";
-export { contains, arrayContains } from "./contains";
+export { arrayContains, contains } from "./contains";
+export { arrayDifference, difference } from "./difference";
+export { arrayIntersection, intersection } from "./intersection";
+export { arrayUnion, union } from "./union";

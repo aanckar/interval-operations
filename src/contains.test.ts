@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { contains, arrayContains } from "./contains";
+import { arrayContains, contains } from "./contains";
 
 describe("contains", () => {
   test("contains", () => {

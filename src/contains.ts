@@ -1,18 +1,18 @@
-import { Interval } from "./types";
+import { Interval, IntervalPoint } from "./types";
 import { arrayUnion } from "./union";
 
-export function contains(
-  outerInterval: Interval,
-  innerInterval: Interval
+export function contains<T extends IntervalPoint>(
+  outerInterval: Interval<T>,
+  innerInterval: Interval<T>
 ): boolean {
   return (
     innerInterval[0] >= outerInterval[0] && innerInterval[1] <= outerInterval[1]
   );
 }
 
-export function arrayContains(
-  outerIntervals: Interval[],
-  innerIntervals: Interval[]
+export function arrayContains<T extends IntervalPoint>(
+  outerIntervals: Interval<T>[],
+  innerIntervals: Interval<T>[]
 ): boolean {
   outerIntervals = arrayUnion(outerIntervals);
   innerIntervals = arrayUnion(innerIntervals);

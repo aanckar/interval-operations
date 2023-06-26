@@ -1,8 +1,11 @@
-import { Interval } from "./types";
+import { Interval, IntervalPoint } from "./types";
 import { union } from "./union";
-import { hasOverlap } from "./helpers";
+import { hasOverlap } from "./utils";
 
-export function difference(a: Interval, b: Interval): Interval[] | null {
+export function difference<T extends IntervalPoint>(
+  a: Interval<T>,
+  b: Interval<T>
+): Interval<T>[] | null {
   // disjoint
   if (!hasOverlap(a, b)) {
     return [a];
@@ -21,10 +24,10 @@ export function difference(a: Interval, b: Interval): Interval[] | null {
   return b[0] > a[0] ? [[a[0], b[0]]] : [[b[1], a[1]]];
 }
 
-export function arrayDifference(
-  inputIntervals: Interval[],
-  inputDiffIntervals: Interval[]
-): Interval[] {
+export function arrayDifference<T extends IntervalPoint>(
+  inputIntervals: Interval<T>[],
+  inputDiffIntervals: Interval<T>[]
+): Interval<T>[] {
   const intervals = union(...inputIntervals);
   const diffIntervals = union(...inputDiffIntervals);
   if (!intervals.length) {
@@ -33,25 +36,34 @@ export function arrayDifference(
   if (!diffIntervals.length) {
     return intervals;
   }
-  const result: Interval[] = [];
+  const result: Interval<T>[] = [];
   for (let i = 0, n = intervals.length; i < n; i++) {
-    let [start, end] = intervals[i] as Interval;
+    const currentInterval = intervals[i];
+    if (!currentInterval) {
+      continue;
+    }
+    let [start, end] = currentInterval;
     let addInterval = true;
     for (let j = 0, m = diffIntervals.length; j < m; j++) {
-      const diffInterval = diffIntervals[j] as Interval;
+      const curr = diffIntervals[j];
+      if (!curr) {
+        continue;
+      }
       // skip intervals to the left
-      if (diffInterval[1] <= start) {
+      if (curr[1] <= start) {
         continue;
       }
       // break if the rest of the intervals are to the right
-      if (diffInterval[0] >= end) {
+      if (curr[0] >= end) {
         break;
       }
-      const diff = difference([start, end], diffInterval);
-      if (diff) {
-        [start, end] = diff[diff.length - 1] as Interval;
+      const diff = difference([start, end], curr);
+      const first = diff?.[0];
+      const prev = diff ? diff[diff.length - 1] : null;
+      if (diff && first && prev) {
+        [start, end] = prev;
         if (diff.length > 1) {
-          result.push(diff[0] as Interval);
+          result.push(first);
         }
       } else {
         addInterval = false;
